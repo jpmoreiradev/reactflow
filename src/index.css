@@ -1,0 +1,95 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  flex-direction: row;
+  display: flex;
+  height: 100%;
+}
+
+.wrapper aside {
+  border-right: 1px solid #eee;
+  background-color: #333;
+  padding: 15px 10px;
+  font-size: 18px;
+  width: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.wrapper aside > * {
+  margin-bottom: 10px;
+  cursor: grab;
+  color: white;
+  font-weight: 700;
+}
+
+.wrapper aside div[class^='react-flow__node-'] {
+  width: 45%;
+  margin-left: 10px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.wrapper aside .description {
+  margin-bottom: 15px;
+  color: white;
+}
+
+.wrapper .react-flow-wrapper {
+  flex-grow: 1;
+
+  height: 100%;
+}
+
+.wrapper .react-flow__node {
+  color: white;
+  font-weight: 700;
+}
+
+.wrapper .react-flow__node-input {
+  background: #444;
+}
+
+.wrapper .react-flow__node-default {
+  background: #444;
+
+}
+
+.wrapper .react-flow__node-output {
+  background: #444;
+
+}
+
+.wrapper .blink {
+  animation: blink 1000ms infinite ease-in-out;
+}
+
+.cursor {
+  position: absolute;
+  z-index: 50;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
