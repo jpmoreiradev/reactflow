@@ -9,7 +9,6 @@ function Cursors({ cursors }: { cursors: Cursor[] }) {
       {cursors.map(({ id, color, x, y }) => {
         const translate = `translate(${x}px, ${y}px)`;
         const scale = `scale(${1 / viewport.zoom})`;
-
         return (
           <svg key={id} className="cursor" style={{ transform: translate }}>
             <g style={{ transform: scale }}>

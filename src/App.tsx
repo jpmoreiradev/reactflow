@@ -1,5 +1,5 @@
-import { DragEvent, useCallback } from 'react';
-import ReactFlow, {
+import React, { DragEvent, useCallback } from 'react';
+import {
   Node,
   ReactFlowProvider,
   Controls,
@@ -7,13 +7,14 @@ import ReactFlow, {
   NodeMouseHandler,
   OnConnect,
   addEdge,
+  Background,
 } from 'reactflow';
-
+import ReactFlow from 'react-flow-renderer';
 import Sidebar from './Sidebar';
 import useCursorStateSynced from './useCursorStateSynced';
 import useNodesStateSynced from './useNodesStateSynced';
 import useEdgesStateSynced from './useEdgesStateSynced';
-
+import DragHandleNode from './DragHandleNode';
 import 'reactflow/dist/style.css';
 import Cursors from './Cursors';
 
@@ -22,7 +23,12 @@ const proOptions = {
   hideAttribution: true,
 };
 
-const ReactFlowPro = () => {
+const nodeTypes = {
+  dragHandleNode: DragHandleNode,
+};
+
+
+const ReactFlowPro: React.FC = () => {
   const [nodes, setNodes, onNodesChange] = useNodesStateSynced();
   const [edges, setEdges, onEdgesChange] = useEdgesStateSynced();
   const [cursors, onMouseMove] = useCursorStateSynced();
@@ -43,12 +49,13 @@ const ReactFlowPro = () => {
       x: event.clientX - 80,
       y: event.clientY - 20,
     });
-    const newNode: Node = {
-      id: `${Date.now()}`,
-      type,
-      position,
-      data: { label: `${type}` },
-    };
+   const newNode: Node = {
+  id: `${Date.now()}`,
+  type: 'dragHandleNode',
+  style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
+  position,
+  data: { label: `${type}` },
+};
 
     setNodes(prev => [...prev, newNode]);
   };
@@ -90,16 +97,18 @@ const ReactFlowPro = () => {
           }}
           onPointerMove={onMouseMove}
           proOptions={proOptions}
+          nodeTypes={nodeTypes}
         >
           <Cursors cursors={cursors} />
           <Controls />
+          <Background />
         </ReactFlow>
       </div>
     </div>
   );
 };
 
-const Flow = () => {
+const Flow: React.FC = () => {
   return (
     <ReactFlowProvider>
       <ReactFlowPro />

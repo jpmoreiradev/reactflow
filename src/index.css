@@ -4,33 +4,30 @@
   font-weight: 400;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   height: 100%;
   margin: 0;
 }
 
 .wrapper {
-  flex-direction: row;
   display: flex;
   height: 100%;
 }
 
 .wrapper aside {
+  width: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
   border-right: 1px solid #eee;
   background-color: #333;
   padding: 15px 10px;
   font-size: 18px;
-  width: 25%;
-  flex-grow: 0;
-  flex-shrink: 0;
+  color: white;
 }
 
 .wrapper aside > * {
   margin-bottom: 10px;
   cursor: grab;
-  color: white;
   font-weight: 700;
 }
 
@@ -43,35 +40,28 @@ body,
 
 .wrapper aside .description {
   margin-bottom: 15px;
-  color: white;
 }
 
 .wrapper .react-flow-wrapper {
   flex-grow: 1;
-
   height: 100%;
 }
 
-.wrapper .react-flow__node {
+.wrapper .react-flow__node,
+.wrapper .react-flow__node-input,
+.wrapper .react-flow__node-default,
+.wrapper .react-flow__node-output {
   color: white;
   font-weight: 700;
 }
 
-.wrapper .react-flow__node-input {
-  background: #444;
-}
-
-.wrapper .react-flow__node-default {
-  background: #444;
-
-}
-
+.wrapper .react-flow__node-input,
+.wrapper .react-flow__node-default,
 .wrapper .react-flow__node-output {
   background: #444;
-
 }
 
-.wrapper .blink {
+.blink {
   animation: blink 1000ms infinite ease-in-out;
 }
 

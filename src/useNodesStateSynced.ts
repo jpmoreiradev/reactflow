@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
-  type Node,
-  type OnNodesChange,
+  Node,
+  OnNodesChange,
   applyNodeChanges,
   getConnectedEdges,
 } from 'reactflow';
@@ -9,9 +9,7 @@ import {
 import ydoc from './ydoc';
 import { edgesMap } from './useEdgesStateSynced';
 
-// We are using nodesMap as the one source of truth for the nodes.
-// This means that we are doing all changes to the nodes in the map object.
-// Whenever the map changes, we update the nodes state.
+
 export const nodesMap = ydoc.getMap<Node>('nodes');
 
 function useNodesStateSynced(): [
