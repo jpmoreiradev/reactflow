@@ -1,4 +1,4 @@
-import React, { DragEvent, useCallback } from 'react';
+import React, { DragEvent, useCallback, useEffect } from 'react';
 import {
   Node,
   ReactFlowProvider,
@@ -27,12 +27,23 @@ const nodeTypes = {
   dragHandleNode: DragHandleNode,
 };
 
+const initialNode: Node = {
+  id: 'initial-node', 
+  type: 'dragHandleNode', 
+  style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
+  data: { label: 'Start' },
+  position: { x: 100, y: 100 }, 
+};
 
 const ReactFlowPro: React.FC = () => {
   const [nodes, setNodes, onNodesChange] = useNodesStateSynced();
   const [edges, setEdges, onEdgesChange] = useEdgesStateSynced();
   const [cursors, onMouseMove] = useCursorStateSynced();
   const { screenToFlowPosition } = useReactFlow();
+
+  useEffect(() => {
+    setNodes([initialNode]);
+  }, [setNodes]);
 
   const onConnect: OnConnect = useCallback(
     params => {
@@ -49,13 +60,14 @@ const ReactFlowPro: React.FC = () => {
       x: event.clientX - 80,
       y: event.clientY - 20,
     });
-   const newNode: Node = {
-  id: `${Date.now()}`,
-  type: 'dragHandleNode',
-  style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
-  position,
-  data: { label: `${type}` },
-};
+
+    const newNode: Node = {
+      id: `${Date.now()}`,
+      type: 'dragHandleNode',
+      style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
+      position,
+      data: { label: `${type}` },
+    };
 
     setNodes(prev => [...prev, newNode]);
   };

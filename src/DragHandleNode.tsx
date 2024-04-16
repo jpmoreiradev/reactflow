@@ -30,7 +30,7 @@ const ColorSelectorNode: FC<NodeProps> = () => {
     <>
       <Handle type="target" position={Position.Left} onConnect={onConnect} style={connections}  />
       <div style={labelStyle}>
-        <span>Texto dentro da div</span>
+        <span>Start</span>
         <span className="custom-drag-handle"/>
       </div>
       <Handle type="source" position={Position.Right} style={connections} />
