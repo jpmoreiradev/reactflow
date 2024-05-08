@@ -14,7 +14,10 @@ import Sidebar from './Sidebar';
 import useCursorStateSynced from './useCursorStateSynced';
 import useNodesStateSynced from './useNodesStateSynced';
 import useEdgesStateSynced from './useEdgesStateSynced';
-import DragHandleNode from './DragHandleNode';
+import TextNode from './components/TextNode';
+import ImageNode from './components/ImageNode';
+import VideoNode from './components/VideoNode';
+import StartNode from './components/StartNode';
 import 'reactflow/dist/style.css';
 import Cursors from './Cursors';
 
@@ -24,15 +27,23 @@ const proOptions = {
 };
 
 const nodeTypes = {
-  dragHandleNode: DragHandleNode,
+  imageNode: ImageNode as any,
+  textNode: TextNode as any,
+  videoNode: VideoNode as any,
+  startNode: StartNode as any,
 };
 
 const initialNode: Node = {
-  id: 'initial-node', 
-  type: 'dragHandleNode', 
-  style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
-  data: { label: 'Start' },
-  position: { x: 100, y: 100 }, 
+  id: 'initial-node',
+  type: 'startNode',
+  style: {
+    border: '1px solid #444',
+    padding: '20px 40px',
+    backgroundColor: '#18181b',
+    borderRadius: '5px',
+  },
+  data: {},
+  position: { x: 100, y: 100 },
 };
 
 const ReactFlowPro: React.FC = () => {
@@ -57,19 +68,53 @@ const ReactFlowPro: React.FC = () => {
 
     const type = event.dataTransfer.getData('application/reactflow');
     const position = screenToFlowPosition({
-      x: event.clientX - 80,
-      y: event.clientY - 20,
+      x: event.clientX - 50,
+      y: event.clientY - 10,
     });
-
-    const newNode: Node = {
-      id: `${Date.now()}`,
-      type: 'dragHandleNode',
-      style: { border: '1px solid #444', padding: '20px 40px', backgroundColor: '#333', borderRadius: '5px' },
-      position,
-      data: { label: `${type}` },
-    };
-
-    setNodes(prev => [...prev, newNode]);
+    console.log(type)
+    if (type === 'video') {
+      const newNode: Node = {
+        id: `${Date.now()}`,
+        type: 'videoNode',
+        style: {
+          border: '1px solid #444',
+          padding: '20px 40px',
+          backgroundColor: '#333',
+          borderRadius: '5px',
+        },
+        position,
+        data: { label: `${type}` },
+      };
+      setNodes(prev => [...prev, newNode]);
+    } else if (type === 'image') {
+      const newNode: Node = {
+        id: `${Date.now()}`,
+        type: 'imageNode',
+        style: {
+          border: '1px solid #444',
+          padding: '20px 40px',
+          backgroundColor: '#333',
+          borderRadius: '5px',
+        },
+        position,
+        data: { label: `${type}` },
+      };
+      setNodes(prev => [...prev, newNode]);
+    } else {
+      const newNode: Node = {
+        id: `${Date.now()}`,
+        type: 'textNode',
+        style: {
+          border: '1px solid #444',
+          padding: '20px 40px',
+          backgroundColor: '#333',
+          borderRadius: '5px',
+        },
+        position,
+        data: { label: `${type}` },
+      };
+      setNodes(prev => [...prev, newNode]);
+    }
   };
 
   const onNodeClick: NodeMouseHandler = useCallback(
@@ -89,6 +134,14 @@ const ReactFlowPro: React.FC = () => {
       }, 3000);
     },
     [setNodes]
+  );
+
+  const onDeleteNode = useCallback(
+    (nodeId: string) => {
+      setNodes(prev => prev.filter(node => node.id !== nodeId));
+      setEdges(prev => prev.filter(edge => edge.source !== nodeId && edge.target !== nodeId));
+    },
+    [setNodes, setEdges]
   );
 
   return (
@@ -113,7 +166,12 @@ const ReactFlowPro: React.FC = () => {
         >
           <Cursors cursors={cursors} />
           <Controls />
-          <Background />
+          <Background 
+              color="#2f2f39" // Cor de fundo
+              gap={40} // Espaçamento entre as linhas da grade
+              size={4} // Tamanho das células da grade
+              style={{ backgroundColor: '#1f1f23' }} // Imagem de fundo 
+          />
         </ReactFlow>
       </div>
     </div>

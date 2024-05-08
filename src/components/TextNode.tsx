@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react';
+import React, { memo, FC, useState } from 'react';
 
 import {
   Handle,
@@ -13,8 +13,9 @@ const onConnect = (params: Connection | Edge) =>
 
 const labelStyle = {
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
-};
+} as any;
 
 const connections = { 
   background: '#FFF',
@@ -26,12 +27,29 @@ const connections = {
 }
 
 const ColorSelectorNode: FC<NodeProps> = () => {
+  const [text, setText] = useState<string>("");
+  const [savedText, setSavedText] = useState<string>("");
+
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  const handleSaveText = () => {
+    setSavedText(text);
+  };
+
   return (
     <>
       <Handle type="target" position={Position.Left} onConnect={onConnect} style={connections}  />
       <div style={labelStyle}>
-        <span>Start</span>
-        <span className="custom-drag-handle"/>
+        <div>{savedText}</div>
+        <input
+          type="text"
+          value={text}
+          onChange={handleTextChange}
+          placeholder="Enter text"
+        />
+        <button onClick={handleSaveText}>Save</button>
       </div>
       <Handle type="source" position={Position.Right} style={connections} />
     </>

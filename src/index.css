@@ -9,24 +9,29 @@ html, body, #root {
   margin: 0;
 }
 
+aside {
+  width: 330px;
+}
+
 .wrapper {
   display: flex;
   height: 100%;
 }
 
+
+
 .wrapper aside {
-  width: 25%;
   flex-grow: 0;
   flex-shrink: 0;
   border-right: 1px solid #eee;
-  background-color: #333;
+  background-color: #18181b;
   padding: 15px 10px;
   font-size: 18px;
   color: white;
 }
 
 .wrapper aside > * {
-  margin-bottom: 10px;
+  margin-bottom:10px;
   cursor: grab;
   font-weight: 700;
 }
@@ -39,27 +44,29 @@ html, body, #root {
 }
 
 .wrapper aside .description {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
+
 
 .wrapper .react-flow-wrapper {
   flex-grow: 1;
   height: 100%;
 }
 
-.wrapper .react-flow__node,
-.wrapper .react-flow__node-input,
-.wrapper .react-flow__node-default,
-.wrapper .react-flow__node-output {
-  color: white;
-  font-weight: 700;
+.wrapper .react-flow__node-startNode {
+  width: 300px;
+  height: 250px;
 }
 
 .wrapper .react-flow__node-input,
 .wrapper .react-flow__node-default,
 .wrapper .react-flow__node-output {
-  background: #444;
+  color: white;
+  font-weight: 700;
+  background-color: #2b2b2c;
+  border-radius: 10px;
 }
+
 
 .blink {
   animation: blink 1000ms infinite ease-in-out;

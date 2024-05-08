@@ -11,31 +11,67 @@ const onDragStart = (event: DragEvent, nodeType: string) => {
 const Sidebar = () => {
   return (
     <aside>
-      <div className="description">
-        You can drag these nodes to the pane on the right.
+      <div className="category">
+        Mensagens
       </div>
       
       <div
-        className="react-flow__node-input"
-        onDragStart={(event: DragEvent) => onDragStart(event, 'Texto')}
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'text')}
         draggable
       >
-        Texto
-      </div>
-      <div
-        className="react-flow__node-default"
-        onDragStart={(event: DragEvent) => onDragStart(event, 'Imagem')}
-        draggable
-      >
-        Imagem
+        Text
       </div>
       <div
         className="react-flow__node-output"
-        onDragStart={(event: DragEvent) => onDragStart(event, 'Video')}
+        onDragStart={(event: DragEvent) => onDragStart(event, 'image')}
+        draggable
+      >
+        Image
+      </div>
+      <div
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'video')}
         draggable
       >
         Video
       </div>
+      <div
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'video')}
+        draggable
+      >
+        Link
+      </div>
+      <div
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'video')}
+        draggable
+      >
+        Document
+      </div>
+      <div
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'video')}
+        draggable
+      >
+        Audio
+      </div>
+
+      <div className="category">
+        Inputs
+      </div>
+
+      <div
+        className="react-flow__node-output"
+        onDragStart={(event: DragEvent) => onDragStart(event, 'video')}
+        draggable
+      > 
+        questions
+      </div>
+
+     
+      
     </aside>
   );
 };
